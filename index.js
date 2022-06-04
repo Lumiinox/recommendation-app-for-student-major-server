@@ -28,7 +28,7 @@ app.post('/api/login-student', (req, res) => {
     password = req.body.password;
     console.log(email);
     console.log(password);
-    const sqlLogin = "SELECT NIM, Nama, status FROM student WHERE email = ? and password = ?;"
+    const sqlLogin = "SELECT NIM, Name, status FROM student WHERE email = ? and password = ?;"
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
@@ -52,39 +52,18 @@ app.post('/api/login-admin', (req, res) => {
     })
 })
 
-app.get('/api/get/questions', (req, res) => {
-    console.log("question api called")
-    const sqlSelect = "SELECT * FROM skripsi_database_soal.questions;";
-    db.query(sqlSelect, (err, result) =>{
-        console.log(result);
-        res.send(result);
-    })
-});
-
-app.get('/api/get/questions-random', (req, res) => {
-    console.log("random question api called")
-    const kodeTipe = "Personality";
-    const sqlSelect = 
-        "SELECT * FROM skripsi_database_soal.questions WHERE code_type = ? ORDER BY RAND() LIMIT 5;";
-    db.query(sqlSelect, [kodeTipe], (err, result) =>{
-        console.log(result);
-        res.send(result);
-    })
-});
-
 app.post('/api/insert/question/', (req, res) => {
     console.log('insert api called');
-    const kodeSoal      = req.body.kodeSoal;
-    const kodeTipe      = req.body.kodeTipe;
-    const pertanyaan    = req.body.pertanyaan;
-    const pilihan1      = req.body.pilihan1;
-    const pilihan2      = req.body.pilihan2;
-    const pilihan3      = req.body.pilihan3;
-    const pilihan4      = req.body.pilihan4;
-    const kunciJawaban  = req.body.kunciJawaban;
+    const code_type     = req.body.code_type;
+    const questionText  = req.body.questionText;
+    const choice_1      = req.body.choice_1;
+    const choice_2      = req.body.choice_2;
+    const choice_3      = req.body.choice_3;
+    const choice_4      = req.body.choice_4;
+    const answer        = req.body.answer;
 
-    const sqlInsert = "INSERT INTO soal (kode_soal, kode_tipe, pertanyaan, pilihan_1, pilihan_2, pilihan_3, pilihan_4, kunci_jawaban) VALUES (?,?,?,?,?,?,?,?);";
-    db.query(sqlInsert, [kodeSoal, kodeTipe, pertanyaan, pilihan1, pilihan2, pilihan3, pilihan4, kunciJawaban], (err, result) =>{
+    const sqlInsert = "INSERT INTO questions (code_type, questionText, choice_1, choice_2, choice_3, choice_4, answer) VALUES (?,?,?,?,?,?,?);";
+    db.query(sqlInsert, [code_type, questionText, choice_1, choice_2, choice_3, choice_4, answer], (err, result) =>{
         if (err) console.log(err);
         console.log("Inserted");
         console.log(result);
@@ -117,6 +96,28 @@ app.post('/api/insert/question_history', (req, res) => {
     })
 })
 
+app.get('/api/get/questions', (req, res) => {
+    console.log("question api called")
+    const sqlSelect = "SELECT * FROM skripsi_database_soal.questions;";
+    db.query(sqlSelect, (err, result) =>{
+        console.log("Data Received");
+        console.log(result);
+        res.send(result);
+    })
+});
+
+app.get('/api/get/questions-random/:codeType', (req, res) => {
+    console.log("random question api called")
+    const code_type = req.params.codeType;
+    const sqlSelect = 
+        "SELECT * FROM skripsi_database_soal.questions WHERE code_type = ? ORDER BY RAND() LIMIT 5;";
+    db.query(sqlSelect, [code_type], (err, result) =>{
+        console.log("Data Received");
+        console.log(result);
+        res.send(result);
+    })
+});
+
 app.get('/api/get/test_id/:nim/:dateTime', (req, res) => {
     console.log("get test_id api called");
     const dateTime = req.params.dateTime;
@@ -126,7 +127,29 @@ app.get('/api/get/test_id/:nim/:dateTime', (req, res) => {
     const getTestIdQuery = "SELECT test_id FROM test_result WHERE test_date = ? AND nim = ?;";
     db.query(getTestIdQuery, [dateTime, nim], (err, result) => {
         if (err) console.log(err);
-        console.log("Inserted")
+        console.log("Data Received")
+        console.log(result);
+        res.send(result);
+    })
+})
+
+app.get('/api/get/test_result', (req, res) => {
+    console.log("get_test_result");
+    const getTestResultQuery = "SELECT * FROM v_test_result_name;";
+    db.query(getTestResultQuery, (err, result) => {
+        if (err) console.log(err);
+        console.log("Data Received");
+        console.log(result);
+        res.send(result);
+    })
+})
+
+app.get('/api/get/questions_stat', (req, res) => {
+    console.log("get question stat");
+    const getQuestionStatbyId = "SELECT * FROM v_questions_with_stats;";
+    db.query(getQuestionStatbyId, (err, result) => {
+        if (err) console.log(err);
+        console.log("Data Received");
         console.log(result);
         res.send(result);
     })
