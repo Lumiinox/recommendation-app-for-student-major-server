@@ -5,10 +5,10 @@ const cors = require('cors')
 const app = express()
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "skripsi_database_soal"
+    host: "eu-cdbr-west-03.cleardb.net",
+    user: "b696370e32914a",
+    password: "95a98a12",
+    database: "heroku_ccc66454152ec6e"
 })
 
 app.use(cors())
@@ -28,7 +28,7 @@ app.post('/api/login-student', (req, res) => {
     password = req.body.password;
     console.log(email);
     console.log(password);
-    const sqlLogin = "SELECT NIM, name, status FROM student WHERE email = ? and password = ?;"
+    const sqlLogin = "SELECT NIM, nameStudent, status FROM student WHERE emailStudent = ? and passStudent = ?;"
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
@@ -43,13 +43,20 @@ app.post('/api/login-admin', (req, res) => {
     password = req.body.password;
     console.log(email);
     console.log(password);
-    const sqlLogin = "SELECT email, id_Admin, name, status FROM admin WHERE email = ? and password = ?;"
+    const sqlLogin = "SELECT emailAdmin, idAdmin, nameAdmin, status FROM admin WHERE emailAdmin = ? and passAdmin = ?;"
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
         console.log(result);
         res.send(result);
     })
+})
+
+app.post('/api/get-admin', () => {
+    const sqlLogin = "SELECT * FROM heroku_ccc66454152ec6e.admin;";
+    db.query(sqlLogin, () => {
+        console.log(result);
+    }
 })
 
 app.post('/api/insert/question/', (req, res) => {
