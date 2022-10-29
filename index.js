@@ -52,13 +52,6 @@ app.post('/api/login-admin', (req, res) => {
     })
 })
 
-app.post('/api/get-admin', () => {
-    const sqlLogin = "SELECT * FROM heroku_ccc66454152ec6e.admin;";
-    db.query(sqlLogin, () => {
-        console.log(result);
-    })
-})
-
 app.post('/api/insert/question/', (req, res) => {
     console.log('insert api called');
     const code_type     = req.body.code_type;
@@ -100,6 +93,13 @@ app.post('/api/insert/question_history', (req, res) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
+    })
+})
+
+app.get('/api/get/admin', () => {
+    const sqlLogin = "SELECT * FROM heroku_ccc66454152ec6e.admin;";
+    db.query(sqlLogin, () => {
+        console.log(result);
     })
 })
 
