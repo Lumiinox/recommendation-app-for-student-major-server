@@ -56,7 +56,7 @@ app.post('/api/get-admin', () => {
     const sqlLogin = "SELECT * FROM heroku_ccc66454152ec6e.admin;";
     db.query(sqlLogin, () => {
         console.log(result);
-    }
+    })
 })
 
 app.post('/api/insert/question/', (req, res) => {
