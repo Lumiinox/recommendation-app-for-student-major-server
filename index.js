@@ -97,7 +97,8 @@ app.post('/api/insert/question_history', (req, res) => {
 })
 
 app.get('/api/get/admin', () => {
-    const sqlLogin = "SELECT * FROM heroku_ccc66454152ec6e.admin;";
+    const sqlLogin = "SELECT * FROM admin;";
+    console.log("testing");
     db.query(sqlLogin, () => {
         console.log(result);
     })
