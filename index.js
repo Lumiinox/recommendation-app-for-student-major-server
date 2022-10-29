@@ -155,7 +155,7 @@ app.get('/api/get/questions_stat', (req, res) => {
     })
 })
 
-app.listen(3001, () => {
-    console.log('Server started on Port 3001');
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`Server started on Port ${PORT}`);
 })
 //
