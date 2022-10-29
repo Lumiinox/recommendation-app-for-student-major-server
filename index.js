@@ -101,6 +101,7 @@ app.get('/api/get/admin', (req, res) => {
     console.log("testing");
     db.query(sqlLogin, (err, result) => {
         console.log(result);
+        res.send(result);
     })
 })
 
