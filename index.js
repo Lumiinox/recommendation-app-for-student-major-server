@@ -96,10 +96,10 @@ app.post('/api/insert/question_history', (req, res) => {
     })
 })
 
-app.get('/api/get/admin', () => {
+app.get('/api/get/admin', (req, res) => {
     const sqlLogin = "SELECT * FROM admin;";
     console.log("testing");
-    db.query(sqlLogin, () => {
+    db.query(sqlLogin, (err, result) => {
         console.log(result);
     })
 })
