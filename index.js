@@ -4,18 +4,12 @@ const mysql = require('mysql')
 const cors = require('cors')
 const app = express()
 
-const db = require("./db");
+const db = require("./db.js");
 
 app.use(cors())
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-db.connect((err) => {
-    if(err){
-        console.log(err)
-    }
-    console.log('MySQL Connected');
-})
 
 app.post('/api/login-student', (req, res) => {
     console.log('login api called');
@@ -162,4 +156,3 @@ app.get('/api/get/questions_stat', (req, res) => {
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server started on Port ${process.env.PORT}`);
 })
-//
