@@ -4,12 +4,7 @@ const mysql = require('mysql')
 const cors = require('cors')
 const app = express()
 
-const db = mysql.createConnection({
-    host: "eu-cdbr-west-03.cleardb.net",
-    user: "b696370e32914a",
-    password: "95a98a12",
-    database: "heroku_ccc66454152ec6e"
-})
+const db = require("./db");
 
 app.use(cors())
 app.use(express.json());
