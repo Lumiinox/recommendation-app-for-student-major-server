@@ -85,6 +85,28 @@ app.post('/api/insert/question_history', (req, res) => {
     })
 })
 
+app.post('/api/new-question-category', (req, res) => {
+    console.log('login api called');
+    categoryName   = req.body.name;
+    console.log(categoryName);
+    const sqlLogin = "INSERT INTO questions_category (nameCategory) VALUES " + categoryName + ";"
+    db.query(sqlLogin, (err, result) => {
+        if (err) console.log(err);
+        console.log("Inserted");
+        res.send(true);
+    })
+})
+
+app.get('/api/get/question-category-all', (req, res) => {
+    const sqlLogin = "SELECT * FROM questions_category;";
+    console.log("testing");
+    db.query(sqlLogin, (err, result) => {
+        console.log(result);
+        res.send(result);
+    })
+})
+
+
 app.get('/api/get/admin', (req, res) => {
     const sqlLogin = "SELECT * FROM admin;";
     console.log("testing");
@@ -115,6 +137,17 @@ app.get('/api/get/questions-random/:codeType', (req, res) => {
         res.send(result);
     })
 });
+
+app.get('/api/get/question-category/:idCategory', (req, res) => {
+    const idCategory = req.params.idCategory;
+    const sqlLogin = "SELECT * FROM questions_category WHERE idCategory = ?;";
+    console.log("testing");
+    db.query(sqlLogin, [idCategory], (err, result) => {
+        console.log("Data Received");
+        console.log(result);
+        res.send(result);
+    })
+})
 
 app.get('/api/get/test_id/:nim/:dateTime', (req, res) => {
     console.log("get test_id api called");
