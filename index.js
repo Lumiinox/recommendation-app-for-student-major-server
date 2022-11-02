@@ -87,10 +87,9 @@ app.post('/api/insert/question_history', (req, res) => {
 
 app.post('/api/new_question_category', (req, res) => {
     console.log('login api called');
-    console.log(req);
     categoryName   = req.body.nameCategory;
     console.log(categoryName);
-    const sqlLogin = "INSERT INTO question_category (nameCategory) VALUES " + categoryName + ";"
+    const sqlLogin = "INSERT INTO question_category (nameCategory) VALUES (" + categoryName + ");"
     db.query(sqlLogin, (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
