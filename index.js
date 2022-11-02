@@ -89,8 +89,8 @@ app.post('/api/new_question_category', (req, res) => {
     console.log('login api called');
     categoryName   = req.body.nameCategory;
     console.log(categoryName);
-    const sqlLogin = "INSERT INTO question_category (nameCategory) VALUES (" + categoryName + ");"
-    db.query(sqlLogin, (err, result) => {
+    const sqlQuery = "INSERT INTO question_category (nameCategory) VALUES (?);"
+    db.query(sqlQuery, [categoryName], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
