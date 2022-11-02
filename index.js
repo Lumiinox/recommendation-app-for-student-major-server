@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-app.post('/api/login-student', (req, res) => {
+app.post('/api/login_student', (req, res) => {
     console.log('login api called');
     email   = req.body.email;
     password = req.body.password;
@@ -26,7 +26,7 @@ app.post('/api/login-student', (req, res) => {
     })
 })
 
-app.post('/api/login-admin', (req, res) => {
+app.post('/api/login_admin', (req, res) => {
     console.log('login api called');
     email   = req.body.email;
     password = req.body.password;
@@ -51,7 +51,7 @@ app.post('/api/insert/question/', (req, res) => {
     const choice_4      = req.body.choice_4;
     const answer        = req.body.answer;
 
-    const sqlInsert = "INSERT INTO questions (code_type, questionText, choice_1, choice_2, choice_3, choice_4, answer) VALUES (?,?,?,?,?,?,?);";
+    const sqlInsert = "INSERT INTO question (code_type, questionText, choice_1, choice_2, choice_3, choice_4, answer) VALUES (?,?,?,?,?,?,?);";
     db.query(sqlInsert, [code_type, questionText, choice_1, choice_2, choice_3, choice_4, answer], (err, result) =>{
         if (err) console.log(err);
         console.log("Inserted");
@@ -77,7 +77,7 @@ app.post('/api/insert/test_result', (req, res) => {
 app.post('/api/insert/question_history', (req, res) => {
     console.log("question_history inserted");
     const value_to_be_inserted = req.body.value_to_be_inserted;
-    const sqlInsertQuestionHistory = "INSERT INTO questions_history (question_id, test_id, test_answer, correctness) VALUES " + value_to_be_inserted + ";";
+    const sqlInsertQuestionHistory = "INSERT INTO question_history (question_id, test_id, test_answer, correctness) VALUES " + value_to_be_inserted + ";";
     db.query(sqlInsertQuestionHistory, (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
@@ -85,11 +85,11 @@ app.post('/api/insert/question_history', (req, res) => {
     })
 })
 
-app.post('/api/new-question-category', (req, res) => {
+app.post('/api/new_question_category', (req, res) => {
     console.log('login api called');
     categoryName   = req.body.name;
     console.log(categoryName);
-    const sqlLogin = "INSERT INTO questions_category (nameCategory) VALUES " + categoryName + ";"
+    const sqlLogin = "INSERT INTO question_category (nameCategory) VALUES " + categoryName + ";"
     db.query(sqlLogin, (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
@@ -97,7 +97,7 @@ app.post('/api/new-question-category', (req, res) => {
     })
 })
 
-app.get('/api/get/question-category-all', (req, res) => {
+app.get('/api/get/question_category_all', (req, res) => {
     const sqlQuery = "SELECT * FROM question_category;";
     console.log("testing");
     db.query(sqlQuery, (err, result) => {
@@ -116,9 +116,9 @@ app.get('/api/get/admin', (req, res) => {
     })
 })
 
-app.get('/api/get/questions', (req, res) => {
+app.get('/api/get/question', (req, res) => {
     console.log("question api called")
-    const sqlSelect = "SELECT * FROM skripsi_database_soal.questions;";
+    const sqlSelect = "SELECT * FROM question;";
     db.query(sqlSelect, (err, result) =>{
         console.log("Data Received");
         console.log(result);
@@ -126,11 +126,11 @@ app.get('/api/get/questions', (req, res) => {
     })
 });
 
-app.get('/api/get/questions-random/:codeType', (req, res) => {
+app.get('/api/get/question_random/:codeType', (req, res) => {
     console.log("random question api called")
     const code_type = req.params.codeType;
     const sqlSelect = 
-        "SELECT * FROM skripsi_database_soal.questions WHERE code_type = ? ORDER BY RAND() LIMIT 5;";
+        "SELECT * FROM question WHERE code_type = ? ORDER BY RAND() LIMIT 5;";
     db.query(sqlSelect, [code_type], (err, result) =>{
         console.log("Data Received");
         console.log(result);
@@ -138,7 +138,7 @@ app.get('/api/get/questions-random/:codeType', (req, res) => {
     })
 });
 
-app.get('/api/get/question-category/:idCategory', (req, res) => {
+app.get('/api/get/question_category/:idCategory', (req, res) => {
     const idCategory = req.params.idCategory;
     const sqlLogin = "SELECT * FROM questions_category WHERE idCategory = ?;";
     console.log("testing");
