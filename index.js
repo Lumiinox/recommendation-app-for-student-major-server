@@ -98,9 +98,9 @@ app.post('/api/new-question-category', (req, res) => {
 })
 
 app.get('/api/get/question-category-all', (req, res) => {
-    const sqlLogin = "SELECT * FROM questions_category;";
+    const sqlQuery = "SELECT * FROM questions_category;";
     console.log("testing");
-    db.query(sqlLogin, (err, result) => {
+    db.query(sqlQuery, (err, result) => {
         console.log(result);
         res.send(result);
     })
@@ -108,9 +108,9 @@ app.get('/api/get/question-category-all', (req, res) => {
 
 
 app.get('/api/get/admin', (req, res) => {
-    const sqlLogin = "SELECT * FROM admin;";
+    const sqlQuery = "SELECT * FROM admin;";
     console.log("testing");
-    db.query(sqlLogin, (err, result) => {
+    db.query(sqlQuery, (err, result) => {
         console.log(result);
         res.send(result);
     })
