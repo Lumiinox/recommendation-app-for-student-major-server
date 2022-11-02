@@ -97,8 +97,8 @@ app.post('/api/new-question-category', (req, res) => {
     })
 })
 
-app.get('/api/get/categoryall', (req, res) => {
-    const sqlQuery = "SELECT * FROM questions_category;";
+app.get('/api/get/question-category-all', (req, res) => {
+    const sqlQuery = "SELECT * FROM question_category;";
     console.log("testing");
     db.query(sqlQuery, (err, result) => {
         console.log(result);
