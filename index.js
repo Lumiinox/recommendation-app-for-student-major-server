@@ -51,7 +51,7 @@ app.post('/api/insert/question/', (req, res) => {
     const choice_4      = req.body.choice_4;
     const answer        = req.body.answer;
 
-    const sqlInsert = "INSERT INTO question (code_type, questionText, choice_1, choice_2, choice_3, choice_4, answer) VALUES (?,?,?,?,?,?,?);";
+    const sqlInsert = "INSERT INTO question (idCategory, questionText, questionChoice1, questionChoice2, questionChoice3, questionChoice4, answer) VALUES (?,?,?,?,?,?,?);";
     db.query(sqlInsert, [code_type, questionText, choice_1, choice_2, choice_3, choice_4, answer], (err, result) =>{
         if (err) console.log(err);
         console.log("Inserted");
@@ -66,8 +66,8 @@ app.post('/api/insert/test_result', (req, res) => {
     const score = req.body.score;
     const dateTime = req.body.dateTime;
     const codeType = req.body.codeType;
-    const sqlInsertTest = "INSERT INTO test_result(NIM, score, test_date, code_Type) VALUES (?,?,?,?);";
-    db.query(sqlInsertTest, [NIM, score, dateTime, codeType], (err, result) => {
+    const sqlInsertTest = "INSERT INTO test_result(NIM, idCategory, testDate, testCore) VALUES (?,?,?,?);";
+    db.query(sqlInsertTest, [NIM, codeType, dateTime, score], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
@@ -77,7 +77,7 @@ app.post('/api/insert/test_result', (req, res) => {
 app.post('/api/insert/question_history', (req, res) => {
     console.log("question_history inserted");
     const value_to_be_inserted = req.body.value_to_be_inserted;
-    const sqlInsertQuestionHistory = "INSERT INTO question_history (question_id, test_id, test_answer, correctness) VALUES " + value_to_be_inserted + ";";
+    const sqlInsertQuestionHistory = "INSERT INTO question_history (idQuestion, idQuiz, quizAnswer, AnswerCorrectness) VALUES " + value_to_be_inserted + ";";
     db.query(sqlInsertQuestionHistory, (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
