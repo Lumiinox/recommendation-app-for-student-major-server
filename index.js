@@ -130,7 +130,7 @@ app.get('/api/get/question_random/:codeType', (req, res) => {
     console.log("random question api called")
     const code_type = req.params.codeType;
     const sqlSelect = 
-        "SELECT * FROM question WHERE code_type = ? ORDER BY RAND() LIMIT 5;";
+        "SELECT * FROM question WHERE idCategory = ? ORDER BY RAND() LIMIT 5;";
     db.query(sqlSelect, [code_type], (err, result) =>{
         console.log("Data Received");
         console.log(result);
@@ -155,7 +155,7 @@ app.get('/api/get/test_id/:nim/:dateTime', (req, res) => {
     const nim = req.params.nim;
     console.log(dateTime);
     console.log(nim);
-    const getTestIdQuery = "SELECT test_id FROM test_result WHERE test_date = ? AND nim = ?;";
+    const getTestIdQuery = "SELECT idTest FROM test_result WHERE testDate = ? AND NIM = ?;";
     db.query(getTestIdQuery, [dateTime, nim], (err, result) => {
         if (err) console.log(err);
         console.log("Data Received")
