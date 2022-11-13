@@ -17,7 +17,7 @@ app.post('/api/login_student', (req, res) => {
     password = req.body.password;
     console.log(email);
     console.log(password);
-    const sqlLogin = "SELECT NIM, nameStudent, status FROM student WHERE emailStudent = ? and passStudent = ?;"
+    const sqlLogin = "SELECT idStudent, nameStudent, status FROM student WHERE emailStudent = ? and passStudent = ?;"
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
@@ -62,12 +62,12 @@ app.post('/api/insert/question/', (req, res) => {
 
 app.post('/api/insert/test_result', (req, res) => {
     console.log('test_result api called');
-    const NIM = req.body.nim;
+    const idStudent = req.body.idStudent;
     const score = req.body.score;
     const dateTime = req.body.dateTime;
     const codeType = req.body.codeType;
-    const sqlInsertTest = "INSERT INTO test_result(NIM, idCategory, testDate, testScore) VALUES (?,?,?,?);";
-    db.query(sqlInsertTest, [NIM, codeType, dateTime, score], (err, result) => {
+    const sqlInsertTest = "INSERT INTO test_result(idStudent, idCategory, testDate, testScore) VALUES (?,?,?,?);";
+    db.query(sqlInsertTest, [idStudent, codeType, dateTime, score], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
@@ -91,6 +91,35 @@ app.post('/api/new_question_category', (req, res) => {
     console.log(categoryName);
     const sqlQuery = "INSERT INTO question_category (nameCategory) VALUES (?);"
     db.query(sqlQuery, [categoryName], (err, result) => {
+        if (err) console.log(err);
+        console.log("Inserted");
+        res.send(true);
+    })
+})
+
+app.post('api/admin_registration', (req, res) => {
+    console.log("admin registration api");
+    const nameAdmin = req.body.nameAdmin;
+    const emailAdmin = req.body.emailAdmin;
+    const passAdmin = req.body.passAdmin;
+    const status = 1;
+    const sqlAdminRegistration = "INSERT INTO admin (nameAdmin, emailAdmin, passAdmin, status) VALUES (?,?,?,?);";
+    db.query(sqlAdminRegistration, [nameAdmin, emailAdmin, passAdmin, status], (err, result) => {
+        if (err) console.log(err);
+        console.log("Inserted");
+        res.send(true);
+    })
+})
+
+
+app.post('api/student_registration', (req, res) => {
+    console.log("student registration api");
+    const nameStudent = req.body.nameStudent;
+    const emailStudent = req.body.emailStudent;
+    const passStudent = req.body.passStudent;
+    const status = 2;
+    const sqlAdminRegistration = "INSERT INTO student (nameStudent, emailStudent, passStudent, status) VALUES (?,?,?,?);";
+    db.query(sqlAdminRegistration, [nameStudent, emailStudent, passStudent, status], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
@@ -149,14 +178,14 @@ app.get('/api/get/question_category/:idCategory', (req, res) => {
     })
 })
 
-app.get('/api/get/test_id/:nim/:dateTime', (req, res) => {
+app.get('/api/get/test_id/:idStudent/:dateTime', (req, res) => {
     console.log("get test_id api called");
     const dateTime = req.params.dateTime;
-    const nim = req.params.nim;
+    const idStudent = req.params.idStudent;
     console.log(dateTime);
-    console.log(nim);
-    const getTestIdQuery = "SELECT idTest FROM test_result WHERE testDate = ? AND NIM = ?;";
-    db.query(getTestIdQuery, [dateTime, nim], (err, result) => {
+    console.log(idStudent);
+    const getTestIdQuery = "SELECT idTest FROM test_result WHERE testDate = ? AND idStudent = ?;";
+    db.query(getTestIdQuery, [dateTime, idStudent], (err, result) => {
         if (err) console.log(err);
         console.log("Data Received")
         console.log(result);
