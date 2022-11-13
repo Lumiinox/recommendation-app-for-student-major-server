@@ -118,6 +118,9 @@ app.post('api/student_registration', (req, res) => {
     const emailStudent = req.body.emailStudent;
     const passStudent = req.body.passStudent;
     const status = 2;
+    console.log(nameStudent);
+    console.log(emailStudent);
+    console.log(passStudent);
     const sqlAdminRegistration = "INSERT INTO student (nameStudent, emailStudent, passStudent, status) VALUES (?,?,?,?);";
     db.query(sqlAdminRegistration, [nameStudent, emailStudent, passStudent, status], (err, result) => {
         if (err) console.log(err);
