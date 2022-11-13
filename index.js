@@ -97,13 +97,13 @@ app.post('/api/new_question_category', (req, res) => {
     })
 })
 
-app.post('api/admin_registration', (req, res) => {
+app.post('/api/admin_registration', (req, res) => {
     console.log("admin registration api");
     nameAdmin = req.body.nameAdmin;
     emailAdmin = req.body.emailAdmin;
     passAdmin = req.body.passAdmin;
-    const sqlAdminRegistration = "INSERT INTO admin (nameAdmin, emailAdmin, passAdmin, status) VALUES (?,?,?,?);";
-    db.query(sqlAdminRegistration, [nameAdmin, emailAdmin, passAdmin, 1], (err, result) => {
+    const sqlQuery = "INSERT INTO admin (nameAdmin, emailAdmin, passAdmin, status) VALUES (?,?,?,?);";
+    db.query(sqlQuery, [nameAdmin, emailAdmin, passAdmin, 1], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
@@ -111,7 +111,7 @@ app.post('api/admin_registration', (req, res) => {
 })
 
 
-app.post('api/student_registration', (req, res) => {
+app.post('/api/student_registration', (req, res) => {
     console.log("student registration api");
     nameStudent = req.body.nameStudent;
     emailStudent = req.body.emailStudent;
@@ -119,8 +119,8 @@ app.post('api/student_registration', (req, res) => {
     console.log(nameStudent);
     console.log(emailStudent);
     console.log(passStudent);
-    const sqlAdminRegistration = "INSERT INTO student (nameStudent, emailStudent, passStudent, status) VALUES (?,?,?,?);";
-    db.query(sqlAdminRegistration, [nameStudent, emailStudent, passStudent, 2], (err, result) => {
+    const sqlQuery = "INSERT INTO student (nameStudent, emailStudent, passStudent, status) VALUES (?,?,?,?);";
+    db.query(sqlQuery, [nameStudent, emailStudent, passStudent, 2], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
