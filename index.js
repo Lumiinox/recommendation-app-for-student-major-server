@@ -17,7 +17,7 @@ app.post('/api/login_student', (req, res) => {
     password = req.body.password;
     console.log(email);
     console.log(password);
-    const sqlLogin = "SELECT idStudent, nameStudent, status FROM student WHERE emailStudent = ? and passStudent = ?;"
+    const sqlLogin = "SELECT * FROM student WHERE emailStudent = ? and passStudent = ?;"
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
@@ -32,7 +32,7 @@ app.post('/api/login_admin', (req, res) => {
     password = req.body.password;
     console.log(email);
     console.log(password);
-    const sqlLogin = "SELECT emailAdmin, idAdmin, nameAdmin, status FROM admin WHERE emailAdmin = ? and passAdmin = ?;"
+    const sqlLogin = "SELECT * FROM admin WHERE emailAdmin = ? and passAdmin = ?;"
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
