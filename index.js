@@ -23,8 +23,8 @@ app.post('/api/login_student', (req, res) => {
         console.log("Inserted");
         console.log(result);
         res.send(result);
-    })
-})
+    });
+});
 
 app.post('/api/login_admin', (req, res) => {
     console.log('login api called');
@@ -38,8 +38,8 @@ app.post('/api/login_admin', (req, res) => {
         console.log("Inserted");
         console.log(result);
         res.send(result);
-    })
-})
+    });
+});
 
 app.post('/api/insert/question/', (req, res) => {
     console.log('insert api called');
@@ -57,8 +57,8 @@ app.post('/api/insert/question/', (req, res) => {
         console.log("Inserted");
         console.log(result);
         res.send(true);
-    })
-})
+    });
+});
 
 app.post('/api/insert/test_result', (req, res) => {
     console.log('test_result api called');
@@ -71,8 +71,8 @@ app.post('/api/insert/test_result', (req, res) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
-    })
-})
+    });
+});
 
 app.post('/api/insert/question_history', (req, res) => {
     console.log("question_history inserted");
@@ -82,40 +82,39 @@ app.post('/api/insert/question_history', (req, res) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
-    })
-})
+    });
+});
 
 app.post('/api/new_question_category', (req, res) => {
     console.log('login api called');
-    categoryName   = req.body.nameCategory;
+    const categoryName   = req.body.nameCategory;
     console.log(categoryName);
     const sqlQuery = "INSERT INTO question_category (nameCategory) VALUES (?);"
     db.query(sqlQuery, [categoryName], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
-    })
-})
+    });
+});
 
 app.post('/api/admin_registration', (req, res) => {
     console.log("admin registration api");
-    nameAdmin = req.body.nameAdmin;
-    emailAdmin = req.body.emailAdmin;
-    passAdmin = req.body.passAdmin;
+    const nameAdmin = req.body.nameAdmin;
+    const emailAdmin = req.body.emailAdmin;
+    const passAdmin = req.body.passAdmin;
     const sqlQuery = "INSERT INTO admin (nameAdmin, emailAdmin, passAdmin, status) VALUES (?,?,?,?);";
     db.query(sqlQuery, [nameAdmin, emailAdmin, passAdmin, 1], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
-    })
-})
-
+    });
+});
 
 app.post('/api/student_registration', (req, res) => {
     console.log("student registration api");
-    nameStudent = req.body.nameStudent;
-    emailStudent = req.body.emailStudent;
-    passStudent = req.body.passStudent;
+    const nameStudent = req.body.nameStudent;
+    const emailStudent = req.body.emailStudent;
+    const passStudent = req.body.passStudent;
     console.log(nameStudent);
     console.log(emailStudent);
     console.log(passStudent);
@@ -124,8 +123,24 @@ app.post('/api/student_registration', (req, res) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
-    })
-})
+    });
+});
+
+app.post('/api/add-quiz', (req, res) => {
+    console.log("student registration api");
+    const idCategory = req.body.idCategory;
+    const questionAmount = req.body.questionAmount;
+    const timeAmount = req.body.timeAmount;
+    console.log(idCategory);
+    console.log(questionAmount);
+    console.log(timeAmount);
+    const sqlQuery = "INSERT INTO quiz (idCategory, questionAmount, timeAmount) VALUES (?,?,?);";
+    db.query(sqlQuery, [idCategory, questionAmount, timeAmount], (err, result) => {
+        if (err) console.log(err);
+        console.log("Inserted");
+        res.send(true);
+    });
+});
 
 app.get('/api/get/question_category_all', (req, res) => {
     const sqlQuery = "SELECT * FROM question_category;";
@@ -133,8 +148,8 @@ app.get('/api/get/question_category_all', (req, res) => {
     db.query(sqlQuery, (err, result) => {
         console.log(result);
         res.send(result);
-    })
-})
+    });
+});
 
 
 app.get('/api/get/admin', (req, res) => {
@@ -143,8 +158,8 @@ app.get('/api/get/admin', (req, res) => {
     db.query(sqlQuery, (err, result) => {
         console.log(result);
         res.send(result);
-    })
-})
+    });
+});
 
 app.get('/api/get/question', (req, res) => {
     console.log("question api called")
@@ -153,7 +168,7 @@ app.get('/api/get/question', (req, res) => {
         console.log("Data Received");
         console.log(result);
         res.send(result);
-    })
+    });
 });
 
 app.get('/api/get/question_random/:codeType', (req, res) => {
@@ -165,7 +180,7 @@ app.get('/api/get/question_random/:codeType', (req, res) => {
         console.log("Data Received");
         console.log(result);
         res.send(result);
-    })
+    });
 });
 
 app.get('/api/get/question_category/:idCategory', (req, res) => {
@@ -176,8 +191,8 @@ app.get('/api/get/question_category/:idCategory', (req, res) => {
         console.log("Data Received");
         console.log(result);
         res.send(result);
-    })
-})
+    });
+});
 
 app.get('/api/get/test_id/:idStudent/:dateTime', (req, res) => {
     console.log("get test_id api called");
@@ -191,8 +206,8 @@ app.get('/api/get/test_id/:idStudent/:dateTime', (req, res) => {
         console.log("Data Received")
         console.log(result);
         res.send(result);
-    })
-})
+    });
+});
 
 app.get('/api/get/test_result', (req, res) => {
     console.log("get_test_result");
@@ -202,8 +217,8 @@ app.get('/api/get/test_result', (req, res) => {
         console.log("Data Received");
         console.log(result);
         res.send(result);
-    })
-})
+    });
+});
 
 app.get('/api/get/question_stat', (req, res) => {
     console.log("get question stat");
@@ -213,9 +228,9 @@ app.get('/api/get/question_stat', (req, res) => {
         console.log("Data Received");
         console.log(result);
         res.send(result);
-    })
-})
+    });
+});
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server started on Port ${process.env.PORT}`);
-})
+});
