@@ -128,10 +128,10 @@ app.post('/api/student_registration', (req, res) => {
 
 app.post('/api/add-test', (req, res) => {
     console.log("student registration api");
-    const idCategory = req.body.idCategory;
-    const questionAmount = req.body.questionAmount;
-    const timeAmount = req.body.timeAmount;
-    const nameTest = req.body.nameTest;
+    const idCategory = req.body.questionCategory;
+    const questionAmount = req.body.numberOfQuestions;
+    const timeAmount = req.body.testDuration;
+    const nameTest = req.body.testName;
     console.log(idCategory);
     console.log(questionAmount);
     console.log(timeAmount);
