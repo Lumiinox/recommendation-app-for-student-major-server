@@ -126,18 +126,20 @@ app.post('/api/student_registration', (req, res) => {
     });
 });
 
-app.post('/api/add-quiz', (req, res) => {
+app.post('/api/add-test', (req, res) => {
     console.log("student registration api");
     const idCategory = req.body.idCategory;
     const questionAmount = req.body.questionAmount;
     const timeAmount = req.body.timeAmount;
+    const nameTest = req.body.nameTest;
     console.log(idCategory);
     console.log(questionAmount);
     console.log(timeAmount);
-    const sqlQuery = "INSERT INTO quiz (idCategory, questionAmount, timeAmount) VALUES (?,?,?);";
-    db.query(sqlQuery, [idCategory, questionAmount, timeAmount], (err, result) => {
+    const sqlQuery = "INSERT INTO test (idCategory, questionAmount, timeAmount, nameTest) VALUES (?,?,?,?);";
+    db.query(sqlQuery, [idCategory, questionAmount, timeAmount, nameTest], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
+        console.log(result);
         res.send(true);
     });
 });
