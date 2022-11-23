@@ -222,6 +222,18 @@ app.get('/api/get/test_result', (req, res) => {
     });
 });
 
+app.get('/api/get/test_result/:idStudent', (req, res) => {
+    const idStudent = req.params.idStudent;
+    console.log("get_test_result");
+    const getTestResultQuery = "SELECT * FROM test_result WHERE idStudent = ?;";
+    db.query(getTestResultQuery, [idStudent], (err, result) => {
+        if (err) console.log(err);
+        console.log("Data Received");
+        console.log(result);
+        res.send(result);
+    });
+});
+
 app.get('/api/get/question_stat', (req, res) => {
     console.log("get question stat");
     const getQuestionStatbyId = "SELECT * FROM v_questions_with_stats;";
