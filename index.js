@@ -245,6 +245,17 @@ app.get('/api/get/question_stat', (req, res) => {
     });
 });
 
+app.get('/api/get/test_data', (req, res) => {
+    console.log('get test');
+    const getTestDataQuery = "SELECT * FROM test";
+    db.query(getTestDataQuery, (err, result) => {
+        if (err) console.log(err);
+        console.log("Data Received");
+        console.log(result);
+        res.send(result);
+    })
+})
+
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server started on Port ${process.env.PORT}`);
 });
