@@ -177,6 +177,8 @@ app.get('/api/get/question_random/:codeType/:questionAmount', (req, res) => {
     console.log("random question api called")
     const code_type = req.params.codeType;
     const questionAmount = req.params.questionAmount;
+    console.log(code_type);
+    console.log(questionAmount);
     const sqlSelect = 
         "SELECT * FROM question WHERE idCategory = ? ORDER BY RAND() LIMIT ?;";
     db.query(sqlSelect, [code_type, questionAmount], (err, result) =>{
