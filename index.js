@@ -173,12 +173,13 @@ app.get('/api/get/question', (req, res) => {
     });
 });
 
-app.get('/api/get/question_random/:codeType', (req, res) => {
+app.get('/api/get/question_random/:codeType/:questionAmount', (req, res) => {
     console.log("random question api called")
     const code_type = req.params.codeType;
+    const questionAmount = req.params.questionAmount;
     const sqlSelect = 
-        "SELECT * FROM question WHERE idCategory = ? ORDER BY RAND() LIMIT 5;";
-    db.query(sqlSelect, [code_type], (err, result) =>{
+        "SELECT * FROM question WHERE idCategory = ? ORDER BY RAND() LIMIT ?;";
+    db.query(sqlSelect, [code_type, questionAmount], (err, result) =>{
         console.log("Data Received");
         console.log(result);
         res.send(result);
