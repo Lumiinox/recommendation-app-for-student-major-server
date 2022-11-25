@@ -62,12 +62,12 @@ app.post('/api/insert/question/', (req, res) => {
 
 app.post('/api/insert/test_result', (req, res) => {
     console.log('test_result api called');
-    const idStudent = req.body.idStudent;
+    const idStudent = req.body.currentId;
     const score = req.body.score;
     const dateTime = req.body.dateTime;
     const codeType = req.body.codeType;
     const sqlInsertTest = "INSERT INTO test_result(idStudent, idCategory, testDate, testScore) VALUES (?,?,?,?);";
-    db.query(sqlInsertTest, [idStudent, codeType, dateTime, score], (err, result) => {
+    db.query(sqlInsertTest, [currentId, codeType, dateTime, score], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
         res.send(true);
