@@ -67,7 +67,7 @@ app.post('/api/insert/test_result', (req, res) => {
     const score = req.body.score;
     const dateTime = req.body.dateTime;
     const codeType = req.body.codeType;
-    const sqlInsertTest = "INSERT INTO test_result(idStudent, idTest idCategory, testDate, testScore) VALUES (?,?,?,?,?);";
+    const sqlInsertTest = "INSERT INTO test_result(idStudent, idTest, idCategory, testDate, testScore) VALUES (?,?,?,?,?);";
     db.query(sqlInsertTest, [currentId, idTest, codeType, dateTime, score], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
