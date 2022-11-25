@@ -62,7 +62,7 @@ app.post('/api/insert/question/', (req, res) => {
 
 app.post('/api/insert/test_result', (req, res) => {
     console.log('test_result api called');
-    const idStudent = req.body.currentId;
+    const currentId = req.body.currentId;
     const score = req.body.score;
     const dateTime = req.body.dateTime;
     const codeType = req.body.codeType;
