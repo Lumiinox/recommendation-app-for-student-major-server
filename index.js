@@ -229,7 +229,7 @@ app.get('/api/get/test_result', (req, res) => {
 app.get('/api/get/test_result/:idStudent', (req, res) => {
     const idStudent = req.params.idStudent;
     console.log("get_test_result");
-    const getTestResultQuery = "SELECT * FROM v_test_result_name WHERE idStudent = ?;";
+    const getTestResultQuery = "SELECT * FROM v_test_result_with_test_name WHERE idStudent = ?;";
     db.query(getTestResultQuery, [idStudent], (err, result) => {
         if (err) console.log(err);
         console.log("Data Received");
