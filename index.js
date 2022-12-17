@@ -5,6 +5,7 @@ const cors = require('cors')
 const app = express()
 
 const db = require("./db.js");
+const { application } = require('express')
 
 app.use(cors())
 app.use(express.json());
@@ -145,6 +146,32 @@ app.post('/api/add-test', (req, res) => {
     });
 });
 
+
+application.post('/api/delete/test-entry', (req, res) => {
+    console.log("Delete Test Entries");
+    const idTest = req.body.idTest;
+    const sqlQuery = `DELETE FROM test WHERE idTest = ${idTest};`
+    db.query(sqlQuery, (err, result) => {
+        if (err) console.log(err);
+        console.log("Deleted");
+        console.log(result);
+        res.send(true);
+    })
+});
+
+application.post('/api/delete/question-entry', (req, res) => {
+    console.log("Delete Test Entries");
+    const idQuestion = req.body.idQuestion;
+    const sqlQuery = `DELETE FROM question WHERE idTest = ${idQuestion};`
+    db.query(sqlQuery, (err, result) => {
+        if (err) console.log(err);
+        console.log("Deleted");
+        console.log(result);
+        res.send(true);
+    })
+});
+
+
 app.get('/api/get/question_category_all', (req, res) => {
     const sqlQuery = "SELECT * FROM question_category;";
     console.log("testing");
@@ -272,6 +299,18 @@ app.get('/api/get/test_data', (req, res) => {
         res.send(result);
     })
 })
+
+application.get('/api/get/test_list', (req, res) => {
+    console.log('get test_list');
+    const getTestListQuery = "SELECT * FROM test;";
+    db.query(getTestListQuery, (err, result) => {
+        if (err) console.log(err);
+        console.log("Data Received");
+        console.log(result);
+        res.send(result);
+    })
+})
+
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server started on Port ${process.env.PORT}`);
