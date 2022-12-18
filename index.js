@@ -300,7 +300,7 @@ app.get('/api/get/test_data', (req, res) => {
     })
 })
 
-application.get('/api/get/test_list', (req, res) => {
+app.get('/api/get/test_list', (req, res) => {
     console.log('get test_list');
     const getTestListQuery = "SELECT * FROM test;";
     db.query(getTestListQuery, (err, result) => {
