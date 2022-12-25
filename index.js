@@ -184,7 +184,7 @@ app.post('/api/deactivate/test-entry', (req, res) => {
 });
 
 app.post('/api/reactivate/test-entry', (req, res) => {
-    console.log("Entry Deactivate");
+    console.log("Entry Reactovate");
     const idTest = req.body.idTest;
     const sqlQuery = `UPDATE test SET activeStatus = 1 WHERE idTest = ${idTest};`;
     db.query(sqlQuery, (err, result) => {
@@ -323,9 +323,9 @@ app.get('/api/get/test_data', (req, res) => {
     })
 })
 
-app.get('/api/get/test_list', (req, res) => {
+app.get('/api/get/active_test', (req, res) => {
     console.log('get test_list');
-    const getTestListQuery = "SELECT * FROM test;";
+    const getTestListQuery = "SELECT * FROM test WHERE activeStatus = 1;";
     db.query(getTestListQuery, (err, result) => {
         if (err) console.log(err);
         console.log("Data Received");
