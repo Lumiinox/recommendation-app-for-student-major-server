@@ -137,7 +137,7 @@ app.post('/api/add-test', (req, res) => {
     console.log(idCategory);
     console.log(questionAmount);
     console.log(timeAmount);
-    const sqlQuery = "INSERT INTO test (idCategory, questionAmount, timeAmount, nameTest) VALUES (?,?,?,?);";
+    const sqlQuery = "INSERT INTO test (idCategory, questionAmount, timeAmount, nameTest, activeStatus) VALUES (?,?,?,?,1);";
     db.query(sqlQuery, [idCategory, questionAmount, timeAmount, nameTest], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
@@ -147,7 +147,7 @@ app.post('/api/add-test', (req, res) => {
 });
 
 
-application.post('/api/delete/test-entry', (req, res) => {
+app.post('/api/delete/test-entry', (req, res) => {
     console.log("Delete Test Entries");
     const idTest = req.body.idTest;
     const sqlQuery = `DELETE FROM test WHERE idTest = ${idTest};`
@@ -156,10 +156,10 @@ application.post('/api/delete/test-entry', (req, res) => {
         console.log("Deleted");
         console.log(result);
         res.send(true);
-    })
+    });
 });
 
-application.post('/api/delete/question-entry', (req, res) => {
+app.post('/api/delete/question-entry', (req, res) => {
     console.log("Delete Test Entries");
     const idQuestion = req.body.idQuestion;
     const sqlQuery = `DELETE FROM question WHERE idTest = ${idQuestion};`
@@ -168,9 +168,32 @@ application.post('/api/delete/question-entry', (req, res) => {
         console.log("Deleted");
         console.log(result);
         res.send(true);
-    })
+    });
 });
 
+app.post('/api/deactivate/test-entry', (req, res) => {
+    console.log("Entry Deactivate");
+    const idTest = req.body.idTest;
+    const sqlQuery = `UPDATE test SET activeStatus = 0 WHERE idTest = ${idTest};`;
+    db.query(sqlQuery, (err, result) => {
+        if (err) console.log(err);
+        console.log("Deactivated");
+        console.log(result);
+        res.send(true);
+    });
+});
+
+app.post('/api/reactivate/test-entry', (req, res) => {
+    console.log("Entry Deactivate");
+    const idTest = req.body.idTest;
+    const sqlQuery = `UPDATE test SET activeStatus = 1 WHERE idTest = ${idTest};`;
+    db.query(sqlQuery, (err, result) => {
+        if (err) console.log(err);
+        console.log("Reactivate");
+        console.log(result);
+        res.send(true);
+    });
+});
 
 app.get('/api/get/question_category_all', (req, res) => {
     const sqlQuery = "SELECT * FROM question_category;";
