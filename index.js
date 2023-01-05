@@ -40,6 +40,7 @@ app.post('/api/login_admin', (req, res) => {
         console.log("Inserted");
         console.log(result[0].RowDataPacket);
         console.log(result.RowDataPacket);
+        console.log(result.idADmin);
         console.log(result);
         result.json()
         const userData = {
