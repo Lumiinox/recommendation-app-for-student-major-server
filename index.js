@@ -39,13 +39,11 @@ app.post('/api/login_admin', (req, res) => {
         if (err) console.log(err);
         console.log("Inserted");
         console.log(result);
-        const covertedData = res.json(result);
-        console.log(covertedData);
         const userData = {
-            idAdmin: covertedData.idAdmin,
-            nameAdmin: covertedData.nameAdmin,
-            emailAdmin: covertedData.nameAdmin,
-            status: result.status,
+            idAdmin: result[0].idAdmin,
+            nameAdmin: result[0].nameAdmin,
+            emailAdmin: result[0].nameAdmin,
+            status: result[0].status,
         }
         console.log(userData);
         console.log("TESTING");
