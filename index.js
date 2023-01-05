@@ -43,12 +43,20 @@ app.post('/api/login_admin', (req, res) => {
             idAdmin: result.idAdmin,
             nameAdmin: result.nameAdmin,
             emailAdmin: result.nameAdmin,
+            status: result.status,
         }
         console.log("TESTING");
         const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET);
         console.log("Access Token");
         console.log(accessToken);
-        res.send(result);
+        const userDataSend = {
+            idAdmin: result.idAdmin,
+            nameAdmin: result.nameAdmin,
+            emailAdmin: result.nameAdmin,
+            status: result.status,
+            accessToken: accessToken,
+        }
+        res.send(userDataSend);
     });
 });
 
