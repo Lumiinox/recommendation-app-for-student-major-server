@@ -40,10 +40,10 @@ app.post('/api/login_admin', (req, res) => {
         console.log("Inserted");
         console.log(result);
         const userData = {
-            idAdmin: result.idAdmin,
-            nameAdmin: result.nameAdmin,
-            emailAdmin: result.nameAdmin,
-            status: result.status,
+            idAdmin: result[0].RowDataPacket.idAdmin,
+            nameAdmin: result[0].RowDataPacket.nameAdmin,
+            emailAdmin: result[0].RowDataPacket.nameAdmin,
+            status: result[0].RowDataPacket.status,
         }
         console.log(userData);
         console.log("TESTING");
