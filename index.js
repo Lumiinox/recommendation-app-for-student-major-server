@@ -50,10 +50,10 @@ app.post('/api/login_admin', (req, res) => {
         console.log("Access Token");
         console.log(accessToken);
         const userDataSend = {
-            idAdmin: result.idAdmin,
-            nameAdmin: result.nameAdmin,
-            emailAdmin: result.nameAdmin,
-            status: result.status,
+            idAdmin: userData.idAdmin,
+            nameAdmin: userData.nameAdmin,
+            emailAdmin: userData.nameAdmin,
+            status: userData.status,
             accessToken: accessToken,
         }
         res.send(userDataSend);
