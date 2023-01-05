@@ -311,7 +311,7 @@ app.get('/api/get/test_result/:idStudent', (req, res) => {
     });
 });
 
-app.get('/api/get/question_stat', (req, res) => {
+app.get('/api/get/question_stat', authenticateToken, (req, res) => {
     console.log("get question stat");
     const getQuestionStatbyId = "SELECT * FROM v_questions_with_stats;";
     db.query(getQuestionStatbyId, (err, result) => {
@@ -344,6 +344,16 @@ app.get('/api/get/active_test', (req, res) => {
     })
 })
 
+function authenticateToken(req, res, next){
+    const authHeader = req.header['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if(token == null) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        next();
+    })
+}
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server started on Port ${process.env.PORT}`);
