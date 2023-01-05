@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
 const cors = require('cors')
+const jwt = require('jsonwebtoken');
 const app = express()
 
 const db = require("./db.js");
@@ -14,8 +15,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.post('/api/login_student', (req, res) => {
     console.log('login api called');
-    email   = req.body.email;
-    password = req.body.password;
+    const email   = req.body.email;
+    const password = req.body.password;
     console.log(email);
     console.log(password);
     const sqlLogin = "SELECT * FROM student WHERE emailStudent = ? and passStudent = ?;"
@@ -29,8 +30,8 @@ app.post('/api/login_student', (req, res) => {
 
 app.post('/api/login_admin', (req, res) => {
     console.log('login api called');
-    email   = req.body.email;
-    password = req.body.password;
+    const email   = req.body.email;
+    const password = req.body.password;
     console.log(email);
     console.log(password);
     const sqlLogin = "SELECT * FROM admin WHERE emailAdmin = ? and passAdmin = ?;"
@@ -38,6 +39,9 @@ app.post('/api/login_admin', (req, res) => {
         if (err) console.log(err);
         console.log("Inserted");
         console.log(result);
+        const accessToken = jwt.sign(result, process.env.ACCESS_TOKEN_SECRET);
+        console.log("Access Token");
+        console.log(accessToken);
         res.send(result);
     });
 });
