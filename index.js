@@ -41,7 +41,7 @@ app.post('/api/login_admin', (req, res) => {
         console.log(result);
         console.log("TESTING");
         console.log(process.env.ACCESS_TOKEN_SECRET);
-        // const accessToken = jwt.sign(result, process.env.ACCESS_TOKEN_SECRET);
+        const accessToken = jwt.sign(result, process.env.ACCESS_TOKEN_SECRET);
         // console.log("Access Token");
         // console.log(accessToken);
         res.send(result);
