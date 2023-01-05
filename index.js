@@ -42,7 +42,7 @@ app.post('/api/login_admin', (req, res) => {
         const userData = {
             idAdmin: result[0].idAdmin,
             nameAdmin: result[0].nameAdmin,
-            emailAdmin: result[0].nameAdmin,
+            emailAdmin: result[0].emailAdmin,
             status: result[0].status,
         }
         console.log(userData);
@@ -53,7 +53,7 @@ app.post('/api/login_admin', (req, res) => {
         const userDataSend = {
             idAdmin: userData.idAdmin,
             nameAdmin: userData.nameAdmin,
-            emailAdmin: userData.nameAdmin,
+            emailAdmin: userData.emailAdmin,
             status: userData.status,
             accessToken: accessToken,
         }
