@@ -39,6 +39,7 @@ app.post('/api/login_admin', (req, res) => {
         if (err) console.log(err);
         console.log("Inserted");
         console.log(result);
+        console.log("TESTING");
         const accessToken = jwt.sign(result, process.env.ACCESS_TOKEN_SECRET);
         console.log("Access Token");
         console.log(accessToken);
