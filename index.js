@@ -45,6 +45,7 @@ app.post('/api/login_admin', (req, res) => {
             emailAdmin: result.nameAdmin,
             status: result.status,
         }
+        console.log(userData);
         console.log("TESTING");
         const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET);
         console.log("Access Token");
