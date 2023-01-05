@@ -354,7 +354,7 @@ app.get('/api/get/active_test', (req, res) => {
 })
 
 function authenticateToken(req, res, next){
-    const authHeader = req.header['authorization'];
+    const authHeader = response.headers.get('authorization');
     console.log("AuthHead");
     console.log(req.header);
     const token = authHeader && authHeader.split(' ')[1];
