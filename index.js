@@ -38,12 +38,15 @@ app.post('/api/login_admin', (req, res) => {
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
         console.log("Inserted");
+        console.log(result[0].RowDataPacket);
+        console.log(result.RowDataPacket);
         console.log(result);
+        result.json()
         const userData = {
-            idAdmin: result[0].RowDataPacket.idAdmin,
-            nameAdmin: result[0].RowDataPacket.nameAdmin,
-            emailAdmin: result[0].RowDataPacket.nameAdmin,
-            status: result[0].RowDataPacket.status,
+            idAdmin: result.idAdmin,
+            nameAdmin: result.nameAdmin,
+            emailAdmin: result.nameAdmin,
+            status: result.status,
         }
         console.log(userData);
         console.log("TESTING");
