@@ -356,7 +356,7 @@ app.get('/api/get/active_test', (req, res) => {
 function authenticateToken(req, res, next){
     res.header("Access-Control-Allow-Origin", "Authorization");
     console.log(req.headers);
-    const authHeader = req.headers['Authorization'];
+    const authHeader = req.headers['authorization'];
     console.log("AuthHead");
     console.log(authHeader);
     const token = authHeader && authHeader.split(' ')[1];
