@@ -357,6 +357,7 @@ function authenticateToken(req, res, next){
     res.header("Access-Control-Allow-Origin", "authorization");
     const authHeader = req.headers['authorization'];
     console.log("AuthHead");
+    console.log(authHeader);
     const token = authHeader && authHeader.split(' ')[1];
     if(token == null) return res.sendStatus(401);
 
