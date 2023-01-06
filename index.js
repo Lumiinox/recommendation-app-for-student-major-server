@@ -22,9 +22,21 @@ app.post('/api/login_student', (req, res) => {
     const sqlLogin = "SELECT * FROM student WHERE emailStudent = ? and passStudent = ?;"
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
-        console.log("Inserted");
-        console.log(result);
-        res.send(result);
+        const userData = {
+            idStudent: result[0].idStudent,
+            nameStudent: result[0].nameStudent,
+            emailAdmin: result[0].emailStudent,
+            status: result[0].status
+        };
+        const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET);
+        const userDataSend = {
+            idStudent: userData.idStudent,
+            nameStudent: userData.nameStudent,
+            emailStudent: userData.emailStudent,
+            status: userData.status,
+            accessToken: accessToken,
+        }
+        res.send(userDataSend);
     });
 });
 
@@ -37,19 +49,13 @@ app.post('/api/login_admin', (req, res) => {
     const sqlLogin = "SELECT * FROM admin WHERE emailAdmin = ? and passAdmin = ?;"
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
-        console.log("Inserted");
-        console.log(result);
         const userData = {
             idAdmin: result[0].idAdmin,
             nameAdmin: result[0].nameAdmin,
             emailAdmin: result[0].emailAdmin,
             status: result[0].status,
         }
-        console.log(userData);
-        console.log("TESTING");
         const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET);
-        console.log("Access Token");
-        console.log(accessToken);
         const userDataSend = {
             idAdmin: userData.idAdmin,
             nameAdmin: userData.nameAdmin,
