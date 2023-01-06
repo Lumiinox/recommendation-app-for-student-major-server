@@ -67,7 +67,7 @@ app.post('/api/login_admin', (req, res) => {
     });
 });
 
-app.post('/api/insert/question/', (req, res) => {
+app.post('/api/insert/question/', authenticateToken, (req, res) => {
     console.log('insert api called');
     const code_type     = req.body.code_type;
     const questionText  = req.body.questionText;
@@ -86,7 +86,7 @@ app.post('/api/insert/question/', (req, res) => {
     });
 });
 
-app.post('/api/insert/test_result', (req, res) => {
+app.post('/api/insert/test_result', authenticateToken, (req, res) => {
     console.log('test_result api called');
     const currentId = req.body.currentId;
     const idTest = req.body.idTest;
@@ -101,7 +101,7 @@ app.post('/api/insert/test_result', (req, res) => {
     });
 });
 
-app.post('/api/insert/question_history', (req, res) => {
+app.post('/api/insert/question_history', authenticateToken, (req, res) => {
     console.log("question_history inserted");
     const value_to_be_inserted = req.body.value_to_be_inserted;
     const sqlInsertQuestionHistory = "INSERT INTO question_history (idQuestion, idQuiz, quizAnswer, AnswerCorrectness) VALUES " + value_to_be_inserted + ";";
@@ -112,7 +112,7 @@ app.post('/api/insert/question_history', (req, res) => {
     });
 });
 
-app.post('/api/new_question_category', (req, res) => {
+app.post('/api/new_question_category', authenticateToken, (req, res) => {
     console.log('login api called');
     const categoryName   = req.body.nameCategory;
     console.log(categoryName);
@@ -124,7 +124,7 @@ app.post('/api/new_question_category', (req, res) => {
     });
 });
 
-app.post('/api/admin_registration', (req, res) => {
+app.post('/api/admin_registration', authenticateToken, (req, res) => {
     console.log("admin registration api");
     const nameAdmin = req.body.nameAdmin;
     const emailAdmin = req.body.emailAdmin;
@@ -137,7 +137,7 @@ app.post('/api/admin_registration', (req, res) => {
     });
 });
 
-app.post('/api/student_registration', (req, res) => {
+app.post('/api/student_registration', authenticateToken, (req, res) => {
     console.log("student registration api");
     const nameStudent = req.body.nameStudent;
     const emailStudent = req.body.emailStudent;
@@ -153,7 +153,7 @@ app.post('/api/student_registration', (req, res) => {
     });
 });
 
-app.post('/api/add-test', (req, res) => {
+app.post('/api/add-test', authenticateToken, (req, res) => {
     console.log("student registration api");
     const idCategory = req.body.questionCategory;
     const questionAmount = req.body.numberOfQuestions;
@@ -172,7 +172,7 @@ app.post('/api/add-test', (req, res) => {
 });
 
 
-app.post('/api/delete/test-entry', (req, res) => {
+app.post('/api/delete/test-entry', authenticateToken, (req, res) => {
     console.log("Delete Test Entries");
     const idTest = req.body.idTest;
     const sqlQuery = `DELETE FROM test WHERE idTest = ${idTest};`
@@ -184,7 +184,7 @@ app.post('/api/delete/test-entry', (req, res) => {
     });
 });
 
-app.post('/api/delete/question-entry', (req, res) => {
+app.post('/api/delete/question-entry', authenticateToken, (req, res) => {
     console.log("Delete Test Entries");
     const idQuestion = req.body.idQuestion;
     const sqlQuery = `DELETE FROM question WHERE idTest = ${idQuestion};`
@@ -196,7 +196,7 @@ app.post('/api/delete/question-entry', (req, res) => {
     });
 });
 
-app.post('/api/deactivate/test-entry', (req, res) => {
+app.post('/api/deactivate/test-entry', authenticateToken, (req, res) => {
     console.log("Entry Deactivate");
     const idTest = req.body.idTest;
     const sqlQuery = `UPDATE test SET activeStatus = 0 WHERE idTest = ${idTest};`;
@@ -208,7 +208,7 @@ app.post('/api/deactivate/test-entry', (req, res) => {
     });
 });
 
-app.post('/api/reactivate/test-entry', (req, res) => {
+app.post('/api/reactivate/test-entry', authenticateToken, (req, res) => {
     console.log("Entry Reactovate");
     const idTest = req.body.idTest;
     const sqlQuery = `UPDATE test SET activeStatus = 1 WHERE idTest = ${idTest};`;
@@ -220,7 +220,7 @@ app.post('/api/reactivate/test-entry', (req, res) => {
     });
 });
 
-app.get('/api/get/question_category_all', (req, res) => {
+app.get('/api/get/question_category_all', authenticateToken, (req, res) => {
     const sqlQuery = "SELECT * FROM question_category;";
     console.log("testing");
     db.query(sqlQuery, (err, result) => {
@@ -230,7 +230,7 @@ app.get('/api/get/question_category_all', (req, res) => {
 });
 
 
-app.get('/api/get/admin', (req, res) => {
+app.get('/api/get/admin', authenticateToken, (req, res) => {
     const sqlQuery = "SELECT * FROM admin;";
     console.log("testing");
     db.query(sqlQuery, (err, result) => {
@@ -239,7 +239,7 @@ app.get('/api/get/admin', (req, res) => {
     });
 });
 
-app.get('/api/get/question', (req, res) => {
+app.get('/api/get/question', authenticateToken, (req, res) => {
     console.log("question api called")
     const sqlSelect = "SELECT * FROM question;";
     db.query(sqlSelect, (err, result) =>{
@@ -249,7 +249,7 @@ app.get('/api/get/question', (req, res) => {
     });
 });
 
-app.get('/api/get/question_random/:codeType/:questionAmount', (req, res) => {
+app.get('/api/get/question_random/:codeType/:questionAmount', authenticateToken, (req, res) => {
     console.log("random question api called")
     const code_type = req.params.codeType;
     const questionAmount = req.params.questionAmount;
@@ -264,7 +264,7 @@ app.get('/api/get/question_random/:codeType/:questionAmount', (req, res) => {
     });
 });
 
-app.get('/api/get/question_category/:idCategory', (req, res) => {
+app.get('/api/get/question_category/:idCategory', authenticateToken, (req, res) => {
     const idCategory = req.params.idCategory;
     const sqlLogin = "SELECT * FROM questions_category WHERE idCategory = ?;";
     console.log("testing");
@@ -275,7 +275,7 @@ app.get('/api/get/question_category/:idCategory', (req, res) => {
     });
 });
 
-app.get('/api/get/test_id/:idStudent/:dateTime', (req, res) => {
+app.get('/api/get/test_id/:idStudent/:dateTime', authenticateToken, (req, res) => {
     console.log("get test_id api called");
     const dateTime = req.params.dateTime;
     const idStudent = req.params.idStudent;
@@ -290,7 +290,7 @@ app.get('/api/get/test_id/:idStudent/:dateTime', (req, res) => {
     });
 });
 
-app.get('/api/get/test_result', (req, res) => {
+app.get('/api/get/test_result', authenticateToken, (req, res) => {
     console.log("get_test_result");
     const getTestResultQuery = "SELECT * FROM v_test_result_name;";
     db.query(getTestResultQuery, (err, result) => {
@@ -301,7 +301,7 @@ app.get('/api/get/test_result', (req, res) => {
     });
 });
 
-app.get('/api/get/test_result/:idStudent', (req, res) => {
+app.get('/api/get/test_result/:idStudent', authenticateToken, (req, res) => {
     const idStudent = req.params.idStudent;
     console.log("get_test_result");
     const getTestResultQuery = "SELECT * FROM v_test_result_with_test_name WHERE idStudent = ?;";
@@ -314,7 +314,7 @@ app.get('/api/get/test_result/:idStudent', (req, res) => {
 });
 
 
-app.get('/api/get/test_result/:idStudent', (req, res) => {
+app.get('/api/get/test_result/:idStudent', authenticateToken, (req, res) => {
     const idStudent = req.params.idStudent;
     console.log("get_test_result");
     const getTestResultQuery = "SELECT * FROM test_result WHERE idStudent = ?;";
@@ -337,7 +337,7 @@ app.get('/api/get/question_stat', authenticateToken, (req, res) => {
     });
 });
 
-app.get('/api/get/test_data', (req, res) => {
+app.get('/api/get/test_data', authenticateToken, (req, res) => {
     console.log('get test');
     const getTestDataQuery = "SELECT * FROM test";
     db.query(getTestDataQuery, (err, result) => {
@@ -348,7 +348,7 @@ app.get('/api/get/test_data', (req, res) => {
     })
 })
 
-app.get('/api/get/active_test', (req, res) => {
+app.get('/api/get/active_test', authenticateToken, (req, res) => {
     console.log('get test_list');
     const getTestListQuery = "SELECT * FROM test WHERE activeStatus = 1;";
     db.query(getTestListQuery, (err, result) => {
