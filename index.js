@@ -359,6 +359,17 @@ app.get('/api/get/active_test', authenticateToken, (req, res) => {
     })
 })
 
+//DELETE
+app.post('/api/delete/question', authenticateToken, (req, res) => {
+    console.log("delete question");
+    questionId = req.body.questionId;
+    const getTestListQuery = `DELETE FROM question_history WHERE id = ${questionId};`;
+    db.query(getTestListQuery, (err, result) => {
+        if (err) console.log(err);
+        res.send(true);
+    })
+})
+
 function authenticateToken(req, res, next){
     const authHeader = req.headers['authorization'];
     console.log("AuthHead");
