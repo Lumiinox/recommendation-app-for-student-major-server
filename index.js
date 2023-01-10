@@ -220,6 +220,25 @@ app.post('/api/reactivate/test-entry', authenticateToken, (req, res) => {
     });
 });
 
+app.post('api/update/test', authenticateToken, (req, res) => {
+    console.log("Test updated");
+    const idTest = req.body.idTest;
+    const idCategory = req.body.questionCategory;
+    const questionAmount = req.body.numberOfQuestions;
+    const timeAmount = req.body.testDuration;
+    const nameTest = req.body.testName;
+    console.log(idCategory);
+    console.log(questionAmount);
+    console.log(timeAmount);
+    const sqlQuery = `UPDATE test SET idCategory = ?, questionAmount = ?, timeAmount = ?, nameTest = ? WHERE idTest = ?`;
+    db.query(sqlQuery, [idCategory, questionAmount, timeAmount, nameTest, idTest], (err, result) => {
+        if (err) console.log(err);
+        console.log("Update");
+        console.log(result);
+        res.send(true);
+    });
+})
+
 app.get('/api/get/question_category_all', authenticateToken, (req, res) => {
     const sqlQuery = "SELECT * FROM question_category;";
     console.log("testing");
