@@ -220,7 +220,7 @@ app.post('/api/reactivate/test-entry', authenticateToken, (req, res) => {
     });
 });
 
-app.post('api/update/test', authenticateToken, (req, res) => {
+app.post('/api/update/test', authenticateToken, (req, res) => {
     console.log("Test updated");
     const idTest = req.body.idTest;
     const idCategory = req.body.questionCategory;
