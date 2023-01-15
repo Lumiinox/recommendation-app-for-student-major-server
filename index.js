@@ -130,7 +130,7 @@ app.post('/api/new_question_category', authenticateToken, (req, res) => {
     });
 });
 
-app.post('/api/admin_registration', authenticateToken, (req, res) => {
+app.post('/api/admin_registration', (req, res) => {
     console.log("admin registration api");
     const nameAdmin = req.body.nameAdmin;
     const emailAdmin = req.body.emailAdmin;
@@ -143,7 +143,7 @@ app.post('/api/admin_registration', authenticateToken, (req, res) => {
     });
 });
 
-app.post('/api/student_registration', authenticateToken, (req, res) => {
+app.post('/api/student_registration', (req, res) => {
     console.log("student registration api");
     const nameStudent = req.body.nameStudent;
     const emailStudent = req.body.emailStudent;
