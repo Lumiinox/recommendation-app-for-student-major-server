@@ -28,7 +28,7 @@ app.post('/api/login_student', (req, res) => {
     const sqlLogin = "SELECT * FROM student WHERE emailStudent = ? and passStudent = ?;"
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
-        if (result[0].idStudent){
+        if (result[0]){
             const userData = {
                 idStudent: result[0].idStudent,
                 nameStudent: result[0].nameStudent,
