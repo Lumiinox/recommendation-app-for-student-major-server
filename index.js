@@ -61,6 +61,7 @@ app.post('/api/login_admin', (req, res) => {
     const sqlLogin = "SELECT * FROM admin WHERE emailAdmin = ? and passAdmin = ?;"
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
+        console.log(result[0]);
         if (result[0].idAdmin){
             const userData = {
                 idAdmin: result[0].idAdmin,
