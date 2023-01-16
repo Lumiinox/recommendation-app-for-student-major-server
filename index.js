@@ -62,7 +62,7 @@ app.post('/api/login_admin', (req, res) => {
     db.query(sqlLogin, [email, password], (err, result) => {
         if (err) console.log(err);
         console.log(result[0]);
-        if (result[0].idAdmin){
+        if (result[0]){
             const userData = {
                 idAdmin: result[0].idAdmin,
                 nameAdmin: result[0].nameAdmin,
